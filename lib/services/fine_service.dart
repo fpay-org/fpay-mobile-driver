@@ -6,36 +6,43 @@ import 'package:fpay_driver/screens/home/home_screen.dart';
 import 'package:logger/logger.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-class Post {
-  final int userId;
-  final int id;
-  final String title;
-  final String body;
+// class Fine {
+//   final String value;
+//   final String id;
+//   //final String title;
+//   //final String body;
 
-  Post({this.userId, this.id, this.title, this.body});
+//   Fine({this.id, this.value});
 
-  factory Post.fromJson(Map<String, dynamic> json) {
-    return Post(
-      userId: json['userId'],
-      id: json['id'],
-      title: json['title'],
-      body: json['body'],
-    );
-  }
+//   // factory Post.fromJson(Map<String, dynamic> json) {
+//   //   return Post(
+//   //     userId: json['userId'],
+//   //     id: json['id'],
+//   //     title: json['title'],
+//   //     body: json['body'],
+//   //   );
+//   // }
+// }
+class Fine{
+  String fineId;
+  int fineValue;
+  bool isPaid;
+  Fine(this.fineId,this.fineValue,this.isPaid);
+  
 }
+
 
 class FineService {
   final baseUrl = Config.baseUrl;
-
+  
   Future<List<Fine>> getFines() async {
-    //   SharedPreferences prefs = await SharedPreferences.getInstance();
-    // String token = prefs.getString("token");
-    // Logger().i('$token');
-    return await Dio()
-        .get(
-      '$baseUrl/fines/driver/961881579v',
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    String nid = prefs.getString("nid");
+    Logger().i('$nid');
+    return await Dio().get(
+      '$baseUrl/fines/driver/960502949v',
     )
-        .then((res) async {
+      .then((res) async {
       Logger().i("$res");
       List<Fine> fines = [];
       Logger().i("here: ${res.data["data"]}");
@@ -48,18 +55,12 @@ class FineService {
         //List<Fine> e_fines = [];
         for (int i = 0; i < length; i++) {
           var f = res.data["data"][i];
-          Logger().i("huk    ${f["id"]}");
-          Fine fine = Fine(
-               f["id"],
-               f["value"],
-              // f["penalties"],
-              // f["officer"],
-              // f["scondary_officer"],
-              // f["location"]["longitude"],
-              // f["location"]["latitude"]
-              );
+          Logger().i("huk    ${f["_id"]}");
+          Logger().i("here");
+          Fine fine = Fine(f["_id"],f["total_value"],f["is_payed"]);//need to add other parameters
           fines.add(fine);
-          Logger().i("vdjskbvjkdsbvkbdskvbds");
+          Logger().i("safaf0{$fines.length}");
+
         }
 
         return fines;
@@ -69,8 +70,7 @@ class FineService {
     }).catchError((err) => false);
   }
 
-  Future<bool> register(String fname, String lname, String email, int mobile_no,
-      String licenese_id, String uName, String pass) {
+  Future<bool> register(String fname, String lname, String email, int mobile_no,String licenese_id, String uName, String pass) {
     return Dio().post(
       '$baseUrl/auth/driver/register',
       data: {
@@ -102,3 +102,4 @@ class FineService {
     }).catchError((err) => false);
   }
 }
+ 
