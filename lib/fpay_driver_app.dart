@@ -1,5 +1,4 @@
 import 'package:fluro/fluro.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:fpay_driver/routes/application.dart';
 import 'package:fpay_driver/routes/routes.dart';
@@ -20,4 +19,3 @@ class FPayDriverApp extends StatelessWidget {
     );
   }
 }
-  

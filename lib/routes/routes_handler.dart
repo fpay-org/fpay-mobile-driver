@@ -1,6 +1,6 @@
-
 import 'package:fluro/fluro.dart';
-import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
+
 import 'package:fpay_driver/screens/auth/auth_screen.dart';
 import 'package:fpay_driver/screens/forget/forget_screen.dart';
 import 'package:fpay_driver/screens/home/home_screen.dart';
@@ -9,27 +9,27 @@ import 'package:fpay_driver/screens/splash/splash_screen.dart';
 
 var splashHandler = Handler(
     handlerFunc: (BuildContext context, Map<String, List<String>> params) {
-    return SplashScreen();
+  return SplashScreen();
 });
 
 var authHandler = Handler(
     handlerFunc: (BuildContext context, Map<String, List<String>> params) {
-    return AuthScreen();
+  return AuthScreen();
 });
 
 var homeHandler = Handler(
     handlerFunc: (BuildContext context, Map<String, List<String>> params) {
-    return HomeScreen();
+  return HomeScreen();
 });
 
-var regHandler = Handler(
+var registerHandler = Handler(
     handlerFunc: (BuildContext context, Map<String, List<String>> params) {
-    return RegistrationScreen();
+  return RegistrationScreen();
 });
 
 var forgetHandler = Handler(
     handlerFunc: (BuildContext context, Map<String, List<String>> params) {
-    return ForgetScreen();
+  return ForgetScreen();
 });
 
 var profileHandler = Handler(
@@ -41,5 +41,3 @@ var settingsHandler = Handler(
     handlerFunc: (BuildContext context, Map<String, List<String>> params) {
   //return Settings();
 });
-
-
