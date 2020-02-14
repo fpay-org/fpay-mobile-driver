@@ -19,8 +19,8 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
-  fluro: "^1.5.1"
-  flutter_spinkit: "^4.0.0"
+  fluro: ^1.5.1
+  flutter_spinkit: ^4.0.0
   shared_preferences: ^0.5.4+5
   logger: ^0.7.0+2
   dio: ^3.0.4
@@ -51,9 +51,9 @@ flutter:
 
   # To add assets to your application, add an assets section, like this:
   assets:
-    - lib/images/logo.png
-    - lib/images/officer.png
-    - lib/images/driver_login.png
+    - assets/images/logo.png
+    - assets/images/officer.png
+    - assets/images/driver_login.png
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware.
