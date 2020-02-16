@@ -2,12 +2,12 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
+import 'package:fpay_driver/model/driver.dart';
 import 'package:fpay_driver/routes/application.dart';
 import 'package:fpay_driver/services/auth_service.dart';
 import 'package:fpay_driver/services/fine_service.dart';
 import 'package:fpay_driver/services/profile_service.dart';
 import 'package:logger/logger.dart';
-import 'dart:ui' as ui;
 
 class MyFines extends StatefulWidget {
   @override
@@ -18,7 +18,7 @@ class _MyFinesState extends State<MyFines> {
   @override
   Widget build(BuildContext context) {
     return FutureBuilder(
-      future: FineService().getFines(),
+      // future: FineService().getFines(),
       builder: (BuildContext context, AsyncSnapshot snapshot) {
         if (snapshot.data == null) {
           Logger().i("snap");
@@ -109,7 +109,7 @@ class _ProfileState extends State<Profile> {
   }
 
   Future<Driver> _handleDetails() async {
-    return await ProfService().getDetails();
+    // return await ProfService().getDetails();
   }
 
   Future _handleLogout(BuildContext context) async {
