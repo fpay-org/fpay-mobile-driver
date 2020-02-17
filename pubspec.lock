@@ -37,7 +37,7 @@ packages:
     source: hosted
     version: "1.1.2"
   circular_bottom_navigation:
-    dependency: "direct main"
+    dependency: "direct dev"
     description:
       name: circular_bottom_navigation
       url: "https://pub.dartlang.org"
@@ -70,42 +70,47 @@ packages:
       name: cupertino_icons
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "0.1.2"
+    version: "0.1.3"
   dio:
-    dependency: "direct main"
+    dependency: "direct dev"
     description:
       name: dio
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "3.0.6"
+    version: "3.0.8"
   fluro:
-    dependency: "direct main"
+    dependency: "direct dev"
     description:
       name: fluro
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "1.5.1"
+    version: "1.5.2"
   flutter:
     dependency: "direct main"
     description: flutter
     source: sdk
     version: "0.0.0"
-  flutter_launcher_icons:
-    dependency: "direct dev"
+  flutter_plugin_android_lifecycle:
+    dependency: transitive
     description:
-      name: flutter_launcher_icons
+      name: flutter_plugin_android_lifecycle
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "0.7.4"
+    version: "1.0.5"
   flutter_spinkit:
-    dependency: "direct main"
+    dependency: "direct dev"
     description:
       name: flutter_spinkit
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "4.0.0"
+    version: "4.1.1+1"
   flutter_test:
     dependency: "direct dev"
+    description: flutter
+    source: sdk
+    version: "0.0.0"
+  flutter_web_plugins:
+    dependency: transitive
     description: flutter
     source: sdk
     version: "0.0.0"
@@ -123,8 +128,15 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "2.1.4"
+  image_picker:
+    dependency: "direct dev"
+    description:
+      name: image_picker
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "0.6.3+1"
   logger:
-    dependency: "direct main"
+    dependency: "direct dev"
     description:
       name: logger
       url: "https://pub.dartlang.org"
@@ -173,12 +185,33 @@ packages:
     source: hosted
     version: "2.0.5"
   shared_preferences:
-    dependency: "direct main"
+    dependency: "direct dev"
     description:
       name: shared_preferences
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "0.5.4+5"
+    version: "0.5.6+1"
+  shared_preferences_macos:
+    dependency: transitive
+    description:
+      name: shared_preferences_macos
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "0.0.1+5"
+  shared_preferences_platform_interface:
+    dependency: transitive
+    description:
+      name: shared_preferences_platform_interface
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "1.0.1"
+  shared_preferences_web:
+    dependency: transitive
+    description:
+      name: shared_preferences_web
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "0.1.2+3"
   sky_engine:
     dependency: transitive
     description: flutter
@@ -247,13 +280,6 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "3.5.0"
-  yaml:
-    dependency: transitive
-    description:
-      name: yaml
-      url: "https://pub.dartlang.org"
-    source: hosted
-    version: "2.2.0"
 sdks:
-  dart: ">2.4.0 <3.0.0"
-  flutter: ">=1.6.7 <2.0.0"
+  dart: ">=2.5.0 <3.0.0"
+  flutter: ">=1.12.13+hotfix.4 <1.13.0"
