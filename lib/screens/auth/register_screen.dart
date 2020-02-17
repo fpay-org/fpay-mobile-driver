@@ -52,7 +52,8 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                       IconButton(
                         icon: Icon(Icons.arrow_back_ios, color: Colors.white),
                         onPressed: () {
-                          Application.router.pop(context);
+                          // Application.router.pop(context);
+                          Navigator.pop(context);
                         },
                       ),
                     ],
@@ -598,7 +599,8 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
         _isLoading = false;
       });
       if (_)
-        Application.router.navigateTo(context, '/home', clearStack: true);
+        // Application.router.navigateTo(context, '/home', clearStack: true);
+        Navigator.popAndPushNamed(context, '/home');
       else {
         Scaffold.of(context).showSnackBar(SnackBar(
           content: Text("Registration Failed"),

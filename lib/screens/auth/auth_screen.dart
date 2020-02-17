@@ -163,14 +163,16 @@ class _AuthScreenState extends State<AuthScreen> {
                     ),
                     FlatButton(
                       onPressed: () {
-                        Application.router
-                            .navigateTo(context, '/auth/register');
+                        // Application.router
+                        //     .navigateTo(context, '/auth/register');
+                        Navigator.pushNamed(context, '/auth/register');
                       },
                       child: Text('Register'),
                     ),
                     FlatButton(
                       onPressed: () {
-                        Application.router.navigateTo(context, '/auth/forget');
+                        // Application.router.navigateTo(context, '/auth/forget');
+                        Navigator.pushNamed(context, '/auth/forget');
                       },
                       child: Text('Forgot Password'),
                     ),
@@ -201,7 +203,8 @@ class _AuthScreenState extends State<AuthScreen> {
         _isLoading = false;
       });
       if (_)
-        Application.router.navigateTo(context, '/home', clearStack: true);
+        // Application.router.navigateTo(context, '/home', clearStack: true);
+        Navigator.popAndPushNamed(context, '/home');
       else {
         Scaffold.of(context).showSnackBar(SnackBar(
           content: Text("Invalid Credentials"),

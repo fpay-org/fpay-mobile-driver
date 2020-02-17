@@ -14,9 +14,11 @@ class _SplashScreenState extends State<SplashScreen> {
     Future.delayed(Duration(seconds: 2), () async {
       AuthService().isLoggedIn().then((_) {
         if (_)
-          Application.router.navigateTo(context, '/home', clearStack: true);
+          // Application.router.navigateTo(context, '/home', clearStack: true);
+          Navigator.popAndPushNamed(context, '/home');
         else
-          Application.router.navigateTo(context, '/auth', clearStack: true);
+          // Application.router.navigateTo(context, '/auth', clearStack: true);
+          Navigator.popAndPushNamed(context, '/auth');
       });
     });
     super.initState();
