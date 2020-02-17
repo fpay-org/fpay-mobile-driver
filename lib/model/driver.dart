@@ -1,5 +1,12 @@
 class Driver {
-  final String nid, password, fName, lName, licenseID, email, phoneNo;
+  final String nid,
+      password,
+      fName,
+      lName,
+      licenseID,
+      email,
+      phoneNo,
+      avatarUrl;
 
   Driver(
       {this.nid,
@@ -8,7 +15,8 @@ class Driver {
       this.lName,
       this.licenseID,
       this.email,
-      this.phoneNo});
+      this.phoneNo,
+      this.avatarUrl});
 
   factory Driver.fromJson(Map<String, dynamic> json) {
     return Driver(
@@ -17,6 +25,7 @@ class Driver {
         lName: json['last_name'],
         licenseID: json['license_number'],
         email: json['email'],
-        phoneNo: json['contact_number']);
+        phoneNo: json['contact_number'],
+        avatarUrl: json['avatar_url']);
   }
 }

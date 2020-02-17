@@ -1,12 +1,11 @@
 import 'dart:io';
 
 import 'package:flutter/material.dart';
-import 'package:fpay_driver/routes/application.dart';
 import 'package:fpay_driver/screens/profile/addcard_screen.dart';
 import 'package:fpay_driver/services/auth_service.dart';
 import 'package:fpay_driver/services/payment_service.dart';
 import 'package:fpay_driver/services/profile_service.dart';
-import 'package:logger/logger.dart';
+import 'package:image_picker/image_picker.dart';
 
 class ProfileScreen extends StatefulWidget {
   @override
@@ -14,7 +13,7 @@ class ProfileScreen extends StatefulWidget {
 }
 
 class _ProfileScreenState extends State<ProfileScreen> {
-  bool _isEditing = false;
+  bool _isEditing = false, _isLoading = false;
   File _image;
 
   @override
@@ -34,6 +33,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                       ),
                       onPressed: () {
                         setState(() {
+                          _revertOperations();
                           _isEditing = false;
                         });
                       },
@@ -43,11 +43,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                         Icons.check,
                         color: Colors.white,
                       ),
-                      onPressed: () {
-                        setState(() {
-                          _isEditing = true;
-                        });
-                      },
+                      onPressed: _onChangesSave,
                     )
                   ],
                 )
@@ -77,11 +73,18 @@ class _ProfileScreenState extends State<ProfileScreen> {
                 return Center(
                   child: Column(
                     children: <Widget>[
-                      CircleAvatar(
-                        backgroundColor: Colors.blueAccent,
-                        radius: 36.0,
-                        child: Text(snapshot.data.fName[0]),
-                      ),
+                      (_image == null)
+                          ? CircleAvatar(
+                              radius: 52.0,
+                              // TODO: Update to user avatar url
+                              backgroundImage: (snapshot.data.avatarUrl != null)
+                                  ? NetworkImage(snapshot.data.avatarUrl)
+                                  : AssetImage("assets/driver_login.png"),
+                            )
+                          : CircleAvatar(
+                              radius: 52.0,
+                              backgroundImage: FileImage(_image),
+                            ),
                       SizedBox(
                         height: 20.0,
                       ),
@@ -157,13 +160,13 @@ class _ProfileScreenState extends State<ProfileScreen> {
                     children: <Widget>[
                       CircleAvatar(
                         backgroundColor: Color(0xaa000000),
-                        radius: 36.0,
+                        radius: 52.0,
                         child: IconButton(
                           icon: Icon(
                             Icons.file_upload,
                             color: Colors.white,
                           ),
-                          onPressed: _handleImageUpload,
+                          onPressed: _handleImageSelect,
                         ),
                       ),
                       SizedBox(
@@ -176,13 +179,24 @@ class _ProfileScreenState extends State<ProfileScreen> {
                   ),
                 ))
             : Container(),
+        (_isLoading)
+            ? Container(
+                color: Color(0xdd003b46),
+                child: Center(
+                  child: CircularProgressIndicator(
+                    valueColor: AlwaysStoppedAnimation<Color>(Colors.white),
+                  ),
+                ),
+              )
+            : Container(),
       ],
     );
   }
 
   void _handleLogout(BuildContext context) {
     AuthService().logout().then((res) {
-      Application.router.navigateTo(context, '/auth', clearStack: true);
+      // Application.router.navigateTo(context, '/auth', clearStack: true);
+      Navigator.popAndPushNamed(context, '/auth');
     });
   }
 
@@ -200,5 +214,45 @@ class _ProfileScreenState extends State<ProfileScreen> {
     });
   }
 
-  void _handleImageUpload() async {}
+  void _handleImageSelect() async {
+    var image = await ImagePicker.pickImage(source: ImageSource.gallery);
+
+    setState(() {
+      _image = image;
+    });
+  }
+
+  void _revertOperations() {
+    _image = null;
+  }
+
+  void _onChangesSave() {
+    if (_image == null) {
+      showDialog(
+          context: context,
+          builder: (BuildContext context) {
+            return AlertDialog(
+              content: Text("Please select an image firse"),
+            );
+          });
+    } else {
+      setState(() {
+        _isLoading = true;
+      });
+
+      ProfileService().updateProfile(_image).then((_) {
+        if (_) {
+          setState(() {
+            _isLoading = false;
+            _revertOperations();
+          });
+        } else {
+          Scaffold.of(context).showSnackBar(SnackBar(
+            content: Text("Invalid Credentials"),
+            backgroundColor: Colors.redAccent,
+          ));
+        }
+      });
+    }
+  }
 }
