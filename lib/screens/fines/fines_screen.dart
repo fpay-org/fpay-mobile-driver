@@ -135,7 +135,47 @@ class ActiveFines extends StatelessWidget {
               if (snapshot.hasData) {
                 if (snapshot.data) {
                   return AlertDialog(
-                    title: Text("Pay Fine"),
+                    content: FutureBuilder(
+                      future: PaymentService().fetchCard(),
+                      builder: (BuildContext context, AsyncSnapshot snapshot) {
+                        if (snapshot.hasData) {
+                          return Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            mainAxisSize: MainAxisSize.min,
+                            children: <Widget>[
+                              Text(
+                                "Checkout",
+                                style: TextStyle(fontWeight: FontWeight.w700),
+                              ),
+                              SizedBox(height: 5.0),
+                              Text(
+                                  "Card Number: ${snapshot.data.cardNumber.toString().substring(0, 4)} ${snapshot.data.cardNumber.toString().substring(4, 8)} ${snapshot.data.cardNumber.toString().substring(8, 12)}"),
+                              SizedBox(height: 5.0),
+                              Text("Are you sure to proceed?"),
+                              SizedBox(height: 5.0),
+                              Row(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceAround,
+                                children: <Widget>[
+                                  FlatButton(
+                                    child: Text("Yes"),
+                                    onPressed: () {},
+                                  ),
+                                  FlatButton(
+                                    child: Text("No"),
+                                    onPressed: () {},
+                                  )
+                                ],
+                              )
+                            ],
+                          );
+                        }
+
+                        return Container(
+                          child: Text("loading"),
+                        );
+                      },
+                    ),
                   );
                 } else {
                   return AlertDialog(
