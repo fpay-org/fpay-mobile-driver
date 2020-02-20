@@ -98,15 +98,49 @@ class _ProfileScreenState extends State<ProfileScreen> {
                             (BuildContext context, AsyncSnapshot snapshot) {
                           if (snapshot.hasData) {
                             return Container(
+                              padding: EdgeInsets.symmetric(
+                                  vertical: 4.0, horizontal: 4),
+                              decoration: BoxDecoration(
+                                  border: Border.all(),
+                                  borderRadius: BorderRadius.circular(4.0)),
                               child: Column(
                                 children: <Widget>[
-                                  Text(snapshot.data.cardNumber),
+                                  Row(
+                                    mainAxisAlignment: MainAxisAlignment.end,
+                                    children: <Widget>[
+                                      InkWell(
+                                        child: Icon(
+                                          Icons.close,
+                                          color: Colors.redAccent,
+                                        ),
+                                        onTap: _removeCard,
+                                      ),
+                                    ],
+                                  ),
+                                  Text(
+                                    "${snapshot.data.cardNumber.toString().substring(0, 4)} ${snapshot.data.cardNumber.toString().substring(4, 8)} ${snapshot.data.cardNumber.toString().substring(8, 12)} ${snapshot.data.cardNumber.toString().substring(12, 16)}",
+                                    style: TextStyle(fontSize: 18.0),
+                                  ),
+                                  SizedBox(
+                                    height: 10.0,
+                                  ),
                                   Text(snapshot.data.csv),
-                                  Text(snapshot.data.expire),
-                                  FlatButton(
-                                    child: Text("Remove card"),
-                                    onPressed: _removeCard,
-                                  )
+                                  SizedBox(
+                                    height: 10.0,
+                                  ),
+                                  Row(
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    children: <Widget>[
+                                      Text("Valid Thru"),
+                                      SizedBox(
+                                        width: 5.0,
+                                      ),
+                                      Text(snapshot.data.expire),
+                                    ],
+                                  ),
+                                  SizedBox(
+                                    height: 30.0,
+                                  ),
                                 ],
                               ),
                             );
@@ -123,7 +157,9 @@ class _ProfileScreenState extends State<ProfileScreen> {
                           }
 
                           return Container(
-                            child: Text("Loading"),
+                            child: Center(
+                              child: CircularProgressIndicator(),
+                            ),
                           );
                         },
                       ),
@@ -147,8 +183,9 @@ class _ProfileScreenState extends State<ProfileScreen> {
               }
 
               return Container(
-                child: Text("loading"),
-              );
+                  child: Center(
+                child: CircularProgressIndicator(),
+              ));
             },
           ),
         ),

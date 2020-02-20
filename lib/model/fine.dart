@@ -5,12 +5,13 @@ class Location {
 }
 
 class Fine {
-  final String totalValue, currency, issuedAt;
+  final String totalValue, currency, issuedAt, id;
   final Location location;
   final bool isPaid;
 
   Fine(
       {this.totalValue,
+      this.id,
       this.currency,
       this.location,
       this.issuedAt,
@@ -24,6 +25,7 @@ class Fine {
             longitude: json['location']['longitude'],
             latitude: json['location']['latitude']),
         issuedAt: json['issued_at'],
-        isPaid: json['is_paid']);
+        isPaid: json['is_paid'],
+        id: json['_id']);
   }
 }
